@@ -1,0 +1,13 @@
+.butt {
+    clip-path: circle();
+    max-width: calc(100vw/3 - 4px);
+    margin: 2px;
+}
+
+@media only screen and (min-width: 768px) {
+    /* For desktop: */
+    .butt {
+        max-width: calc(100vw/5 - 8px);
+        margin: 4px;
+    }
+}
