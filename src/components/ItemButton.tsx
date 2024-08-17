@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import './ItemButton.css';
 import { useFarmCtx, useCurrentFarm} from 'utils/Context';
 import { Farm, Items } from 'utils/schemes';
-// import items from '../items.json'
 
 type Props = {
   name: string & keyof Items;
@@ -45,8 +44,3 @@ const ItemButton: React.FC<Props> = ({ name, pic }) => {
 };
 
 export default ItemButton;
-
-
-// delete after
-// if farms is empty => store a new array which its first and only element is the current farm
-// else if farms has other farms in it => get the farm that matches the name of the current farm and modify it.

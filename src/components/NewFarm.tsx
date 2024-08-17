@@ -11,7 +11,6 @@ type Data = {
 
 export default function NewFarmModal({ dismiss }: { dismiss: (data?: Data | null, role?: string) => void }) {
     const ref = useRef({nameRef: null, levelRef: null});
-    console.log("myref", ref);
 
     function handleClick() {
         const newFarm: Farm = {

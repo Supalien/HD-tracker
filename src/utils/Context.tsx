@@ -49,7 +49,6 @@ export default function FarmCtxProvider({ children }: any){
                 saw: 0
             }
         }
-        console.log("farmsItem: ", farmsItem);
         localStorage.setItem('farms', JSON.stringify([farms]));
         return farms;
     });

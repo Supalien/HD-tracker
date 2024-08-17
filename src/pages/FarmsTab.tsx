@@ -11,7 +11,6 @@ const FarmsTab: React.FC = () => {
   const {farm, setFarm} = useFarmCtx();
   const {currentFarm, setCurrentFarm} = useCurrentFarm();
   let farms = JSON.parse(localStorage.getItem('farms') || '[]'); // farms array or empty array
-  const modal = useRef<HTMLIonModalElement>(null);
   const [present, dismiss] = useIonModal(NewFarmModal, {
     dismiss: (data: any, role: string) => dismiss(data, role),
   });
@@ -19,10 +18,8 @@ const FarmsTab: React.FC = () => {
   function openModal() {
     present({
       onWillDismiss: (ev) => {
-        if (ev.detail.role === 'confirm') {
-          setFarm
-        }
-        console.log(ev.detail.role);
+        if (ev.detail.role === 'confirm')
+          setFarm(ev.detail.data)
       },
     });
   }
