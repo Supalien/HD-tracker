@@ -1,9 +1,9 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import './StatsTab.css';
-import { useFarmCtx } from 'utils/Context';
+import { useFarm } from 'utils/Context';
 
 const StatsTab: React.FC = () => {
-  const {farm, setFarm} = useFarmCtx();
+  const {farm, setFarm} = useFarm();
   return (
     <IonPage>
       <IonHeader>

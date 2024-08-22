@@ -56,7 +56,7 @@ const App: React.FC = () => (
         <IonReactRouter>
           <IonTabs>
             <IonRouterOutlet>
-              <Route exact path="/tracker">
+              <Route path="/track">
                 <TrackerTab />
               </Route>
               <Route exact path="/stats">
@@ -66,13 +66,13 @@ const App: React.FC = () => (
                 <FarmsTab />
               </Route>
               <Route exact path="/">
-                <Redirect to="/tracker" />
+                <Redirect to="/track" />
               </Route>
             </IonRouterOutlet>
             <IonTabBar slot="bottom">
-              <IonTabButton tab="tracker" href="/tracker">
+              <IonTabButton tab="track" href="/track">
                 <IonIcon aria-hidden="true" icon={homeOutline} />
-                <IonLabel>Tracker</IonLabel>
+                <IonLabel>Track</IonLabel>
               </IonTabButton>
               <IonTabButton tab="stats" href="/stats">
                 <IonIcon aria-hidden="true" icon={statsChartOutline} />

@@ -1,8 +1,9 @@
-import { createContext, useState, useContext} from "react";
+import { createContext, useState, useContext, useEffect} from "react";
 import { Farm, Items } from './schemes';
+import { getFarms } from "utils";
 
 type FarmCtx = {
-    farm: Farm | null,
+    farm: Farm,
     setFarm: React.Dispatch<React.SetStateAction<Farm>>
 }
 
@@ -27,7 +28,7 @@ export default function FarmCtxProvider({ children }: any){
     const {currentFarm} = useCurrentFarm();
     const [farm, setFarm] = useState<Farm>( () => {
         const farmsItem = localStorage.getItem('farms');
-        let farms =  farmsItem? JSON.parse(farmsItem)[currentFarm] : {
+        return farmsItem? JSON.parse(farmsItem)[currentFarm] : {
             name: 'farm1',
             level: 0,
             fields: 0,
@@ -49,16 +50,34 @@ export default function FarmCtxProvider({ children }: any){
                 saw: 0
             }
         }
-        localStorage.setItem('farms', JSON.stringify([farms]));
-        return farms;
     });
+    useEffect(() => {
+        return () => { // save farm to localStorage
+            const farms = localStorage.getItem('farms')
+            if (farms === null)
+              localStorage.setItem('farms', JSON.stringify([farm]));
+            else {
+              const farmsArr = JSON.parse(farms);
+              if (farmsArr[currentFarm] != null){ 
+                farmsArr[currentFarm] = farm; 
+                localStorage.setItem('farms', JSON.stringify(farmsArr));
+                localStorage.setItem('currentFarm', currentFarm.toString());
+                }
+            }
+        }
+    }, [farm]);
+
+    useEffect( () => {
+        const farms = getFarms();
+        setFarm(farms[currentFarm]);
+    }, [currentFarm]);
     return (
         <FarmCtx.Provider value={{farm, setFarm}}>
             {children}
         </FarmCtx.Provider>)
 }
 
-export function useFarmCtx(){
+export function useFarm(){
     const ctx = useContext(FarmCtx);
     if (!ctx) {
         throw new Error('useFarmCtx must be used within a FarmCtxProvider');

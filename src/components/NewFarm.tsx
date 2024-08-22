@@ -12,7 +12,7 @@ type Data = {
 export default function NewFarmModal({ dismiss }: { dismiss: (data?: Data | null, role?: string) => void }) {
     const ref = useRef({nameRef: null, levelRef: null});
 
-    function handleClick() {
+    function handleConfirm() {
         const newFarm: Farm = {
             name: ref.current.nameRef?.["value"] || 'farm1',
             level: parseInt(ref.current.levelRef?.["value"] || '7'),
@@ -36,9 +36,6 @@ export default function NewFarmModal({ dismiss }: { dismiss: (data?: Data | null
             }
         };
         if ("check if farm name is unique and level is above 7"){
-            const farms = JSON.parse(localStorage.getItem('farms') || '[]');
-            farms.push(newFarm);
-            localStorage.setItem('farms', JSON.stringify(farms));
             dismiss(newFarm, "confirm")
         }
     }
@@ -54,7 +51,7 @@ export default function NewFarmModal({ dismiss }: { dismiss: (data?: Data | null
             </IonButtons>
             <IonTitle>Welcome</IonTitle>
             <IonButtons slot="end">
-              <IonButton onClick={handleClick} strong={true}>
+              <IonButton onClick={handleConfirm} strong={true}>
                 Confirm
               </IonButton>
             </IonButtons>

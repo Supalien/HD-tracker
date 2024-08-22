@@ -1,8 +1,9 @@
 
 import { useEffect } from 'react';
 import './ItemButton.css';
-import { useFarmCtx, useCurrentFarm} from 'utils/Context';
+import { useFarm, useCurrentFarm} from 'utils/Context';
 import { Farm, Items } from 'utils/schemes';
+import useCurrent from 'utils';
 
 type Props = {
   name: string & keyof Items;
@@ -11,23 +12,7 @@ type Props = {
 }
 
 const ItemButton: React.FC<Props> = ({ name, pic }) => {
-  const {farm, setFarm} = useFarmCtx();
-  const {currentFarm} = useCurrentFarm();
-  useEffect(() => {
-  	return () => {
-      const farms = localStorage.getItem('farms')
-      if (farms === null)
-        localStorage.setItem('farms', JSON.stringify([farm]));
-      else {
-        const farmsArr = JSON.parse(farms);
-        if (farmsArr[currentFarm] != null){ 
-          farmsArr[currentFarm].items = farm?.items; 
-          localStorage.setItem('farms', JSON.stringify(farmsArr));
-          localStorage.setItem('currentFarm', currentFarm.toString());
-        }
-      }
-  	};
-  }, [farm, currentFarm]);
+  const {farm, setFarm} = useFarm();
   return (<>
     <button className="butt" onClick={() => {
       if (farm?.items[name] == null){
