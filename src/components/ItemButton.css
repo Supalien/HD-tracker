@@ -1,13 +1,23 @@
+
+
 .butt {
     clip-path: circle();
-    max-width: calc(100vw/3 - 4px);
     margin: 2px;
+    background-color: #222222;
+}
+
+.butt:hover {
+    background-color: #262626;
+}
+
+.butt:active {
+    background-color: #202020;
+    transform: scale(0.95);
 }
 
 @media only screen and (min-width: 768px) {
     /* For desktop: */
     .butt {
-        max-width: calc(100vw/5 - 8px);
         margin: 4px;
     }
 }

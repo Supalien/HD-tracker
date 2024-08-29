@@ -1,0 +1,11 @@
+.itemsContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+@media only screen and (min-width: 768px) {
+    /* For desktop: */
+    .itemsContainer {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}

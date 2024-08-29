@@ -13,7 +13,7 @@ type Props = {
 
 const ItemButton: React.FC<Props> = ({ name, pic }) => {
   const {farm, setFarm} = useFarm();
-  return (<>
+  return (
     <button className="butt" onClick={() => {
       if (farm?.items[name] == null){
         console.log(farm);
@@ -21,10 +21,8 @@ const ItemButton: React.FC<Props> = ({ name, pic }) => {
       farm.items[name] += 1;
       setFarm({...farm});
     }}>
-      <img src={pic} alt={name}/>
+      <img src={pic} onContextMenu={(ev) => {ev.preventDefault()}}/>
     </button>
-      <>{farm?.items?.[name] || 0}</>
-    </>
   );
 };
 
