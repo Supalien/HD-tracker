@@ -1,20 +1,21 @@
 
 export interface Items {
-    bolt: number | undefined;
-    plank: number | undefined;
-    tape: number | undefined;
-    nails: number | undefined;
-    screw: number | undefined;
-    panel: number | undefined;
-    deed: number | undefined;
-    mallet: number | undefined;
-    marker: number | undefined;
-    dynamite: number | undefined;
-    tnt: number | undefined;
-    shovel: number | undefined;
-    pick: number | undefined;
-    axe: number | undefined;
-    saw: number | undefined;
+    bolt: number;
+    plank: number;
+    tape: number;
+    nails: number;
+    screw: number;
+    panel: number;
+    deed: number;
+    mallet: number;
+    marker: number;
+    dynamite: number;
+    tnt: number;
+    shovel: number;
+    pick: number;
+    axe: number;
+    saw: number;
+    [key: string]: number;
 }
 
 export interface Farm {
