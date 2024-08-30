@@ -18,18 +18,4 @@ import pick from './Pickaxe.png'
 import saw from './Saw.png'
 import axe from './Axe.png'
 
-export {bolt}
-export {plank}
-export {tape}
-export {nails}
-export {screw}
-export {panel}
-export {deed}
-export {mallet}
-export {marker}
-export {dynamite}
-export {tnt}
-export {shovel}
-export {pick}
-export {saw}
-export {axe}
+export {bolt, plank, tape, nails, screw, panel, deed, mallet, marker, dynamite, tnt, shovel, pick, axe, saw}

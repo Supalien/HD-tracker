@@ -2,9 +2,7 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/rea
 
 import ItemButton from 'components/ItemButton';
 import './TrackerTab.css';
-import useCurrent from 'utils';
 import { useCurrentFarm, useFarm } from 'utils/Context';
-import { useEffect } from 'react';
 
 import {bolt, plank, tape, nails, screw, panel, deed, mallet, marker, dynamite, tnt, shovel, pick, axe, saw} from 'assets'
 
@@ -36,7 +34,7 @@ const TrackerTab: React.FC = () => {
           <ItemButton name="pick" pic={pick}></ItemButton>
           <ItemButton name="axe" pic={axe}></ItemButton>
           <ItemButton name="saw" pic={saw}></ItemButton>
-      </div>
+        </div>
       </IonContent>
     </IonPage>
   );
