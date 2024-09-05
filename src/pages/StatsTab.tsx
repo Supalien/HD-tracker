@@ -31,10 +31,32 @@ const StatsTab: React.FC = () => {
         <pre>
           {JSON.stringify(farm?.items)}
         </pre>
-        <MyBar
-          title='All items'
-          items={farm?.items || {}}
-        />
+        <div className='charts'>
+          <MyBar
+            title='All items'
+            items={farm?.items}
+          />
+          <MyPie
+            title = 'Barn'
+            items={{bolt: farm?.items.bolt, plank: farm?.items.plank, tape: farm?.items.tape}}
+          />
+          <MyPie
+            title = 'Silo'
+            items={{nails: farm?.items.nails, screw: farm?.items.screw, panel: farm?.items.panel}}
+          />
+          <MyPie
+            title = 'Land'
+            items={{deed: farm?.items.deed, mallet: farm?.items.mallet, marker: farm?.items.marker}}
+          />
+          <MyPie
+            title = 'Mine'
+            items={{dynamite: farm?.items.dynamite, tnt: farm?.items.tnt, shovel: farm?.items.shovel, pick: farm?.items.pick}}
+          />
+          <MyPie
+            title = 'Axes and Saws'
+            items={{axe: farm?.items.axe, saw: farm?.items.saw}}
+          />
+        </div>
       </IonContent>
     </IonPage>
   );

@@ -23,7 +23,6 @@ const FarmsTab: React.FC = () => {
             farm.name = newFarm.name;
             farm.level = newFarm.level;
             farm.fields = newFarm.fields;
-            console.log(farm);
             setFarm({...farm}); // order a rerender
           }
           else{
