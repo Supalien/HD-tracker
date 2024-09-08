@@ -11,7 +11,11 @@ export default defineConfig({
   plugins: [
     react(),
     legacy(),
-    VitePWA({ registerType: 'autoUpdate' })
+    VitePWA({
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,png}'],
+      }
+    })
   ],
   test: {
     globals: true,
