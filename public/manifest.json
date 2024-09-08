@@ -3,6 +3,10 @@
   "name": "HayDay drops tracker",
   "icons": [
     {
+      "src": "favicon.png",
+      "sizes": "32x32"
+    },
+    {
       "src": "windows11/SmallTile.scale-100.png",
       "sizes": "71x71"
     },
