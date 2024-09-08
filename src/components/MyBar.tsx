@@ -65,7 +65,9 @@ export default function MyBar({items, title}: Props) {
     return (
         <div className='chartContainer'>
           <h1 onClick={() => setColors(shuffle(ChartColors))}>{title}</h1>
-          <Bar data={data} options={options}/>
+          <div className='barContainer'>
+            <Bar data={data} options={options}/>
+          </div>
         </div>
     )
 }

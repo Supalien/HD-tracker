@@ -49,7 +49,7 @@ export default function MyPie({items, title}: Props) {
       animation: false,
       plugins: {
         legend: {
-          display: false,
+          display: true,
         },
         tooltip: {
           enabled: true,
@@ -60,7 +60,9 @@ export default function MyPie({items, title}: Props) {
     return (
         <div className='chartContainer'>
           <h1 onClick={() => setColors(shuffle(ChartColors))}>{title}</h1>
-          <Pie data={data} options={options}/>
+          <div className='pieContainer'>
+            <Pie data={data} options={options}/>
+          </div>
         </div>
     )
 }

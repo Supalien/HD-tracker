@@ -1,6 +1,53 @@
-.charts {
+
+  .bars, .pies {
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-}
+    width: 100%;
+  }
+
+  .bars .chartContainer {
+    width: 100%;
+    max-width: 1200px;
+  } 
+
+
+  .pies .chartContainer {
+    width: calc(33.33% - 1rem);
+    min-width: 250px;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .chartContainer h1 {
+    text-align: center;
+    font-size: 1.5rem;
+  }
+
+  .pieContainer {
+    height: 300px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .pieContainer canvas {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  @media (max-width: 1200px) {
+    .pies .chartContainer {
+      width: calc(50% - 1rem);
+    }
+  }
+
+  @media (max-width: 768px) {
+
+    .pies .chartContainer {
+      width: 100%;
+    }
+  }

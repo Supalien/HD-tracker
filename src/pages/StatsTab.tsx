@@ -28,14 +28,16 @@ const StatsTab: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <pre>
+        {/* <pre>
           {JSON.stringify(farm?.items)}
-        </pre>
-        <div className='charts'>
+        </pre> */}
+        <div className="bars">
           <MyBar
             title='All items'
             items={farm?.items}
           />
+        </div>
+        <div className='pies'>
           <MyPie
             title = 'Barn'
             items={{bolt: farm?.items.bolt, plank: farm?.items.plank, tape: farm?.items.tape}}
