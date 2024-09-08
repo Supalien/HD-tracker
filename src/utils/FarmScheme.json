@@ -1,0 +1,78 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "definitions": {
+        "Items": {
+            "additionalProperties": false,
+            "properties": {
+                "axe": {
+                    "type": "number"
+                },
+                "bolt": {
+                    "type": "number"
+                },
+                "deed": {
+                    "type": "number"
+                },
+                "dynamite": {
+                    "type": "number"
+                },
+                "mallet": {
+                    "type": "number"
+                },
+                "marker": {
+                    "type": "number"
+                },
+                "nails": {
+                    "type": "number"
+                },
+                "panel": {
+                    "type": "number"
+                },
+                "pick": {
+                    "type": "number"
+                },
+                "plank": {
+                    "type": "number"
+                },
+                "saw": {
+                    "type": "number"
+                },
+                "screw": {
+                    "type": "number"
+                },
+                "shovel": {
+                    "type": "number"
+                },
+                "tape": {
+                    "type": "number"
+                },
+                "tnt": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "properties": {
+        "fields": {
+            "type": "number"
+        },
+        "items": {
+            "$ref": "#/definitions/Items"
+        },
+        "level": {
+            "type": "number"
+        },
+        "name": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "items",
+        "level",
+        "name"
+    ],
+    "type": "object"
+}
+

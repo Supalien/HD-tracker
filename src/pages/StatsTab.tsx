@@ -24,7 +24,7 @@ const StatsTab: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Tab 2</IonTitle>
+          <IonTitle>Stats for "{farm.name}"</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>

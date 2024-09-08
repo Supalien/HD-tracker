@@ -1,6 +1,6 @@
 import { createContext, useState, useContext, useEffect} from "react";
 import { Farm, Items } from './schemes';
-import { getFarms } from "utils";
+import { emptyFarm, getFarms } from "utils";
 
 type FarmCtx = {
     farm: Farm,
@@ -28,28 +28,7 @@ export default function FarmCtxProvider({ children }: any){
     const {currentFarm} = useCurrentFarm();
     const [farm, setFarm] = useState<Farm>( () => {
         const farmsItem = localStorage.getItem('farms');
-        return farmsItem? JSON.parse(farmsItem)[currentFarm] : {
-            name: 'farm1',
-            level: 0,
-            fields: 0,
-            items: {
-                bolt: 0,
-                plank: 0,
-                tape: 0,
-                nails: 0,
-                screw: 0,
-                panel: 0,
-                deed: 0,
-                mallet: 0,
-                marker: 0,
-                dynamite: 0,
-                tnt: 0,
-                shovel: 0,
-                pick: 0,
-                axe: 0,
-                saw: 0
-            }
-        }
+        return farmsItem? JSON.parse(farmsItem)[currentFarm] : emptyFarm
     });
     useEffect(() => {
         const saveFarm = () => {

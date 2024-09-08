@@ -21,7 +21,7 @@ const ItemButton: React.FC<Props> = ({ name, pic }) => {
       farm.items[name] += 1;
       setFarm({...farm});
     }}>
-      <img src={pic} onContextMenu={(ev) => {ev.preventDefault()}}/>
+      <img src={pic} /* onContextMenu={(ev) => {ev.preventDefault()}} *//>
     </button>
   );
 };

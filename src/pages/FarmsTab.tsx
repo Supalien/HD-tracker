@@ -22,7 +22,15 @@ const FarmsTab: React.FC = () => {
           if (farm.level === 0) { // meaning that the current farm is the initial, not configured farm. in that case we want to copy the data that the user might have written on this unconfigured farm and to the newly configured farm.
             farm.name = newFarm.name;
             farm.level = newFarm.level;
-            farm.fields = newFarm.fields;
+            // add the new farm's items (from json) to the current, initial, unconfigured farm
+            farm.items = {
+              ...farm.items,
+              ...Object.fromEntries(
+                Object.entries(newFarm.items).map(([key, value]) => [
+                  key, (farm.items[key] || 0) + (value || 0)
+                ])
+              )
+            };
             setFarm({...farm}); // order a rerender
           }
           else{
@@ -41,17 +49,13 @@ const FarmsTab: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Tab 3</IonTitle>
+          <IonTitle>Farms</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonSelect label="Current Farm:" placeholder="Select" interface='popover' onIonChange={(e) => {setCurrentFarm(e.detail.value);}}>
+        <IonSelect label="Current Farm:" placeholder="Select" value={currentFarm} interface='popover' onIonChange={(e) => {setCurrentFarm(e.detail.value);}}>
           {farms.map((f: Farm, i: number) => <IonSelectOption value={i} key={i}>{f?.name || "no name"}</IonSelectOption>)}
         </IonSelect>
-        {/* debug delete later */}
-        currentFarm: {currentFarm} <br/>
-        farms[currentFarm]: {farms[currentFarm]?.name} <br/>
-        farm: {farm.name}
       </IonContent>
         <IonFab slot="fixed" vertical="bottom" horizontal="end">
           <IonFabButton onClick={openModal}>

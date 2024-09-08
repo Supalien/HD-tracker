@@ -3,7 +3,7 @@ import { MutableRefObject, useRef } from "react";
 import NewFarmForm from "./NewFarmForm";
 import React from "react";
 import { Farm } from "utils/schemes";
-import { getFarms } from "utils";
+import { emptyFarm, getFarms } from "utils";
 
 type Data = {
     name?: string;
@@ -11,35 +11,18 @@ type Data = {
 }
 
 export default function NewFarmModal({ dismiss }: { dismiss: (data?: Data | null, role?: string) => void }) {
-    const ref = useRef({nameRef: null, levelRef: null});
+    const ref = useRef<Farm | null>();
 
     function handleConfirm() {
         const newFarm: Farm = {
-            name: ref.current.nameRef?.["value"] || 'farm1',
-            level: parseInt(ref.current.levelRef?.["value"] || '7'),
-            fields: 0,
-            items: {
-                bolt: 0,
-                plank: 0,
-                tape: 0,
-                nails: 0,
-                screw: 0,
-                panel: 0,
-                deed: 0,
-                mallet: 0,
-                marker: 0,
-                dynamite: 0,
-                tnt: 0,
-                shovel: 0,
-                pick: 0,
-                axe: 0,
-                saw: 0
-            }
+            name: ref.current?.name || 'farm1',
+            level: ref.current?.level || 7,
+            items: ref.current?.items || emptyFarm.items
         };
-        if (newFarm.level > 7 && !getFarms().some(f => f.name === newFarm.name)){
-            dismiss(newFarm, "confirm")
+        if (newFarm.level >= 7 && !getFarms().some(f => f.name === newFarm.name)){
+          dismiss(newFarm, "confirm")
         } else {
-          alert("Farm name must me unique and level must be above 7")
+          alert("Farm name must me unique and level must be at least 7")
         }
     }
 
