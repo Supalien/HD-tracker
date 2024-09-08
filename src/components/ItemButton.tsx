@@ -15,9 +15,9 @@ const ItemButton: React.FC<Props> = ({ name, pic }) => {
   const {farm, setFarm} = useFarm();
   return (
     <button className="butt" onClick={() => {
-      if (farm?.items[name] == null){
-        console.log(farm);
-        throw new Error("fuck me");}
+      if (farm?.items?.[name] === undefined){
+        throw new Error(`Item '${name}' is undefined.`);
+      }
       farm.items[name] += 1;
       setFarm({...farm});
     }}>

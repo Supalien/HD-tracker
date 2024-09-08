@@ -52,24 +52,18 @@ export default function FarmCtxProvider({ children }: any){
         }
     });
     useEffect(() => {
-        return () => { // save farm to localStorage
-            const farms = localStorage.getItem('farms')
-            if (farms === null)
-              localStorage.setItem('farms', JSON.stringify([farm]));
-            else {
-              const farmsArr = JSON.parse(farms);
-              if (farmsArr[currentFarm] != null){ 
-                farmsArr[currentFarm] = farm; 
-                localStorage.setItem('farms', JSON.stringify(farmsArr));
-                localStorage.setItem('currentFarm', currentFarm.toString());
-                }
-            }
+        const saveFarm = () => {
+            const farms = getFarms();
+            farms[currentFarm] = farm;
+            localStorage.setItem('farms', JSON.stringify(farms));
         }
+        saveFarm();
     }, [farm]);
 
     useEffect( () => {
         const farms = getFarms();
         setFarm(farms[currentFarm]);
+        localStorage.setItem('currentFarm', currentFarm.toString());
     }, [currentFarm]);
     return (
         <FarmCtx.Provider value={{farm, setFarm}}>

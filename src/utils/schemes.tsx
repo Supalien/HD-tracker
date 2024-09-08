@@ -19,8 +19,8 @@ export interface Items {
 }
 
 export interface Farm {
-    name: string | undefined;
-    level: number | undefined;
+    name: string;
+    level: number;
     fields: number | undefined;
     items: Items;
 }

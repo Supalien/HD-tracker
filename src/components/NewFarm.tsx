@@ -3,6 +3,7 @@ import { MutableRefObject, useRef } from "react";
 import NewFarmForm from "./NewFarmForm";
 import React from "react";
 import { Farm } from "utils/schemes";
+import { getFarms } from "utils";
 
 type Data = {
     name?: string;
@@ -35,8 +36,10 @@ export default function NewFarmModal({ dismiss }: { dismiss: (data?: Data | null
                 saw: 0
             }
         };
-        if ("check if farm name is unique and level is above 7"){
+        if (newFarm.level > 7 && !getFarms().some(f => f.name === newFarm.name)){
             dismiss(newFarm, "confirm")
+        } else {
+          alert("Farm name must me unique and level must be above 7")
         }
     }
 

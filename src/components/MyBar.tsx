@@ -10,7 +10,7 @@ type Props = {
     title: string
 }
 
-export default function MyPie({items, title}: Props) {
+export default function MyBar({items, title}: Props) {
   const [colors, setColors] = useState(shuffle(ChartColors));
   
     const data = {
