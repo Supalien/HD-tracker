@@ -1,7 +1,8 @@
 # TODO and ideas
-- [ ] make pwa installable (probably need more icons or some manifest values)
+- [X] make pwa installable (probably need more icons or some manifest values)
+- [ ] show number of fields, magic number and average drops per batch based on the level of the current farm.
 - [ ] support light mode
-- [ ] let the user edit his farms
+- [ ] let the user edit his farms details
 - [ ] export farm as JSON
 
 ## How to run
