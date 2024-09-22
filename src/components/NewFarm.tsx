@@ -2,27 +2,32 @@ import { IonButton, IonButtons, IonContent, IonHeader, IonInput, IonItem, IonMod
 import { MutableRefObject, useRef } from "react";
 import NewFarmForm from "./NewFarmForm";
 import React from "react";
-import { Farm } from "utils/schemes";
+import { Farm, Items } from "utils/schemes";
 import { emptyFarm, getFarms } from "utils";
 
 type Data = {
     name?: string;
     level?: number;
+    items?: Items;
 }
 
-export default function NewFarmModal({ dismiss }: { dismiss: (data?: Data | null, role?: string) => void }) {
+export default function NewFarmModal({ dismiss }: { dismiss: (data?: Farm | null, role?: string) => void }) {
     const ref = useRef<Farm | null>();
 
     function handleConfirm() {
-        const newFarm: Farm = {
-            name: ref.current?.name || 'farm1',
-            level: ref.current?.level || 7,
+        const newFarm = {
+            name: ref.current?.name,
+            level: ref.current?.level,
             items: ref.current?.items || emptyFarm.items
         };
+        if (newFarm.name === undefined || newFarm.level === undefined){
+          alert("Must enter name and level.")
+          return;
+        }
         if (newFarm.level >= 7 && !getFarms().some(f => f.name === newFarm.name)){
-          dismiss(newFarm, "confirm")
+          dismiss((newFarm as Farm), "confirm")
         } else {
-          alert("Farm name must me unique and level must be at least 7")
+          alert("Farm name must be unique and level must be at least 7")
         }
     }
 
@@ -35,7 +40,7 @@ export default function NewFarmModal({ dismiss }: { dismiss: (data?: Data | null
                 Cancel
               </IonButton>
             </IonButtons>
-            <IonTitle>Welcome</IonTitle>
+            <IonTitle>New Farm</IonTitle>
             <IonButtons slot="end">
               <IonButton onClick={handleConfirm} strong={true}>
                 Confirm

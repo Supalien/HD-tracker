@@ -12,8 +12,7 @@ function NewFarmForm(props: any, ref: any) {
     const [items, setItems] = useState<Items>(emptyFarm.items);
     const inputRef: React.LegacyRef<HTMLInputElement> = useRef(null);
 
-    function handleChange(event: any) {
-        console.log('sdf')
+    function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
         const fileReader = new FileReader();
         fileReader.onload = () => {
             try {
@@ -27,12 +26,12 @@ function NewFarmForm(props: any, ref: any) {
                 }
             } catch (error) {
                 if (error instanceof ValidationError)
-                    alert(`JSON is not valid. ${error.errors[0].instancePath} ${error.errors[0].message}`);
+                    alert(error.errors.map(e => e.message).join(", "));
                 else if (error instanceof Error)
                     alert("Error reading JSON file: " + error.message);
             }
         }
-        fileReader.readAsText(event.target.files[0]);
+        fileReader.readAsText((event.target.files as FileList)[0]);
     }
 
     useEffect(() => {
@@ -70,17 +69,7 @@ function NewFarmForm(props: any, ref: any) {
             accept="application/json"
             ref={inputRef}
             style={{ display: "none" }}
-            onChange={ (e) => {
-                try {
-                handleChange(e)
-                } catch (err) {
-                    if (err instanceof ValidationError) {
-                        alert(err.errors.map(e => e.message).join(", "));
-                    } else {
-                        alert("Failed to parse JSON file.");
-                    }
-                }
-            }}
+            onChange={handleChange}
           />
         </IonButton>
       </>

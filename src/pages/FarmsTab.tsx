@@ -35,10 +35,9 @@ const FarmsTab: React.FC = () => {
           }
           else{
             const farms = getFarms();
-            farms.push(newFarm);
+            const len = farms.push(newFarm);
             localStorage.setItem('farms', JSON.stringify(farms));
-            setFarm(newFarm)
-            setCurrentFarm(currentFarm+1);
+            setCurrentFarm(len - 1);
           }
         }
       },

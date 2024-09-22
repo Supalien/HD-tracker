@@ -30,6 +30,7 @@ export default function FarmCtxProvider({ children }: any){
         const farmsItem = localStorage.getItem('farms');
         return farmsItem? JSON.parse(farmsItem)[currentFarm] : emptyFarm
     });
+    // runs everytime farm is changed
     useEffect(() => {
         const saveFarm = () => {
             const farms = getFarms();
@@ -39,6 +40,7 @@ export default function FarmCtxProvider({ children }: any){
         saveFarm();
     }, [farm]);
 
+    // runs everytime currentFarm is changed
     useEffect( () => {
         const farms = getFarms();
         setFarm(farms[currentFarm]);
