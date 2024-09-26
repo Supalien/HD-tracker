@@ -50,10 +50,18 @@ import './theme/variables.css';
 
 setupIonicReact();
 
-// Initialize Google Analytics 4
-ga4.initialize('G-7XRP9E9F1D');
 
-const App: React.FC = () => (
+
+const App: React.FC = () => {
+  // Initialize Google Analytics 4
+  ga4.initialize('G-7XRP9E9F1D');
+  ga4.send({ hitType: "pageview", page: "/", title: "testing pageView" });
+  ga4.event({
+    category: "tests",
+    action: "test event",
+    value: 99,
+  });
+  return (
   <IonApp>
     <CurrentCtxProvider>
       <FarmProvider>
@@ -92,6 +100,6 @@ const App: React.FC = () => (
       </FarmProvider>
     </CurrentCtxProvider>
   </IonApp>
-);
+);}
 
 export default App;
