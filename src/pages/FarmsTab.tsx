@@ -5,6 +5,7 @@ import { getFarms } from 'utils';
 import { Farm } from 'utils/schemes';
 import { add } from 'ionicons/icons';
 import NewFarmModal from 'components/NewFarm';
+import ga4 from 'react-ga4';
 
 const FarmsTab: React.FC = () => {
   const {farm, setFarm} = useFarm();
@@ -39,6 +40,12 @@ const FarmsTab: React.FC = () => {
             localStorage.setItem('farms', JSON.stringify(farms));
             setCurrentFarm(len - 1);
           }
+          // Send an event when new farm is created
+          ga4.event({
+            category: newFarm.name,
+            action: "new_farm",
+            value: newFarm.level, // level of farm
+          });
         }
       },
     });

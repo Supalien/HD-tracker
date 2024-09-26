@@ -5,10 +5,12 @@ import './TrackerTab.css';
 import { useCurrentFarm, useFarm } from 'utils/Context';
 
 import {bolt, plank, tape, nails, screw, panel, deed, mallet, marker, dynamite, tnt, shovel, pick, axe, saw} from 'assets'
+import ga4 from 'react-ga4';
 
 const TrackerTab: React.FC = () => {
   //const params = useSearhParams(); // wont work until ionic decides to support react router v6
   const {farm} = useFarm();
+  ga4.send({ hitType: "pageview", page: "/track", title: "Tracking page" });
   
   return (
     <IonPage>
