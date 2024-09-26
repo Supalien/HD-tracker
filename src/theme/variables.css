@@ -1,2 +1,21 @@
 /* For information on how to create your own theme, please see:
 http://ionicframework.com/docs/theming/ */
+
+@media (prefers-color-scheme: dark){
+    .butt {
+        --bg-color: #222222;
+        --bg-color-hover: #323232;
+        --bg-color-active: #202020;
+    }
+}
+
+@media (prefers-color-scheme: light){
+    :root  {
+        --ion-background-color: #ededed;
+    }
+    .butt {
+        --bg-color: #dddddd;
+        --bg-color-hover: #cdcdcd;
+        --bg-color-active: #dfdfdf;
+    }
+}   

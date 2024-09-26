@@ -3,7 +3,7 @@
 .butt {
     clip-path: circle();
     margin: 2px 1px;
-    background-color: #222222;
+    background-color: var(--bg-color);
 }
 
 .butt img {
@@ -12,13 +12,13 @@
 }
 
 .butt:hover {
-    background-color: #323232;
+    background-color: var(--bg-color-hover);
     transform: scale(1.10);
 
 }
 
 .butt:active {
-    background-color: #202020;
+    background-color: var(--bg-color-active);
     transform: scale(0.90);
 }
 
