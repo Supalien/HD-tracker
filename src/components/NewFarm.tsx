@@ -24,7 +24,7 @@ export default function NewFarmModal({ dismiss }: { dismiss: (data?: Farm | null
           alert("Must enter name and level.")
           return;
         }
-        if (newFarm.level >= 7 && !getFarms().some(f => f.name === newFarm.name)){
+        if (7 <= newFarm.level && newFarm.level <= 999 && !getFarms().some(f => f.name.toLowerCase() === newFarm.name?.toLowerCase())){
           dismiss((newFarm as Farm), "confirm")
         } else {
           alert("Farm name must be unique and level must be at least 7")

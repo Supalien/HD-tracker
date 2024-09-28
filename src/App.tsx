@@ -16,6 +16,7 @@ import StatsTab from 'pages/StatsTab';
 import FarmsTab from 'pages/FarmsTab';
 
 import FarmProvider, { CurrentCtxProvider } from 'utils/Context'
+import { isProd } from 'utils';
 import ga4 from 'react-ga4';
 
 /* Core CSS required for Ionic components to work properly */
@@ -49,9 +50,11 @@ import '@ionic/react/css/palettes/dark.system.css';
 import './theme/variables.css';
 
 setupIonicReact();
-
-// Initialize Google Analytics 4
-ga4.initialize('G-7XRP9E9F1D');
+if (isProd())
+  // Initialize Google Analytics 4
+  ga4.initialize('G-7XRP9E9F1D');
+else
+  console.log('Google Analytics 4 is not initialized in development mode');
 
 const App: React.FC = () => (
   <IonApp>

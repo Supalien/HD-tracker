@@ -71,3 +71,11 @@ export function isValidFarm(data: object): boolean{
   if (!valid) throw new ValidationError(validate.errors as Partial<ErrorObject>[]);
   return valid;
 }
+
+export function isProd(): boolean {
+  return import.meta.env.PROD
+}
+
+export function isDev(): boolean {
+  return import.meta.env.DEV
+}

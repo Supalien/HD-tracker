@@ -1,11 +1,12 @@
-import { IonContent, IonHeader, IonPage, IonSelect, IonSelectOption, IonTitle, IonToolbar, IonButton, IonFab, IonFabButton, IonIcon, IonFabList, useIonModal } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonSelect, IonSelectOption, IonTitle, IonToolbar, IonFab, IonFabButton, IonIcon, useIonModal } from '@ionic/react';
 import './FarmsTab.css';
 import { useCurrentFarm, useFarm } from 'utils/Context';
-import { getFarms } from 'utils';
+import { getFarms, isProd } from 'utils';
 import { Farm } from 'utils/schemes';
 import { add } from 'ionicons/icons';
 import NewFarmModal from 'components/NewFarm';
 import ga4 from 'react-ga4';
+import FarmCard from 'components/FarmCard';
 
 const FarmsTab: React.FC = () => {
   const {farm, setFarm} = useFarm();
@@ -40,12 +41,16 @@ const FarmsTab: React.FC = () => {
             localStorage.setItem('farms', JSON.stringify(farms));
             setCurrentFarm(len - 1);
           }
-          // Send an event when new farm is created
-          ga4.event({
-            category: newFarm.name,
-            action: "new_farm",
-            value: newFarm.level, // level of farm
-          });
+          if (isProd()) {
+            // Send an event when new farm is created
+            ga4.event({
+              category: newFarm.name,
+              action: "new_farm",
+              value: newFarm.level, // level of farm
+            });
+          }
+          else
+            console.log(`new farm ${newFarm.name} created with level ${newFarm.level}`);
         }
       },
     });
@@ -59,14 +64,27 @@ const FarmsTab: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonSelect label="Current Farm:" placeholder="Select" value={currentFarm} interface='popover' onIonChange={(e) => {setCurrentFarm(e.detail.value);}}>
-          {farms.map((f: Farm, i: number) => <IonSelectOption value={i} key={i}>{f?.name || "no name"}</IonSelectOption>)}
+        <IonSelect
+          label="Current Farm:"
+          placeholder="Select"
+          value={currentFarm}
+          interface="popover"
+          onIonChange={(e) => {
+            setCurrentFarm(e.detail.value);
+          }}
+        >
+          {farms.map((f: Farm, i: number) => (
+            <IonSelectOption value={i} key={i}>
+              {f?.name || "no name"}
+            </IonSelectOption>
+          ))}
         </IonSelect>
+        {farms.map((f, i) => <FarmCard farm={f} key={i}/>)}
       </IonContent>
-        <IonFab slot="fixed" vertical="bottom" horizontal="end">
-          <IonFabButton onClick={openModal}>
-            <IonIcon icon={add}></IonIcon>
-          </IonFabButton>
+      <IonFab slot="fixed" vertical="bottom" horizontal="end">
+        <IonFabButton onClick={openModal}>
+          <IonIcon icon={add}></IonIcon>
+        </IonFabButton>
       </IonFab>
     </IonPage>
   );

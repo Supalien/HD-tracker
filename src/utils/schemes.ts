@@ -21,6 +21,5 @@ export interface Items {
 export interface Farm {
     name: string;
     level: number;
-    fields?: number;
     items: Items;
 }
