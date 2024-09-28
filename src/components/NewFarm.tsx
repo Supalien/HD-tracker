@@ -27,7 +27,7 @@ export default function NewFarmModal({ dismiss }: { dismiss: (data?: Farm | null
         if (7 <= newFarm.level && newFarm.level <= 999 && !getFarms().some(f => f.name.toLowerCase() === newFarm.name?.toLowerCase())){
           dismiss((newFarm as Farm), "confirm")
         } else {
-          alert("Farm name must be unique and level must be at least 7")
+          alert("Farm name must be unique and level must be between 7 and 999")
         }
     }
 
