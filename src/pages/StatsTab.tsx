@@ -1,7 +1,6 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, useIonViewWillEnter, useIonViewWillLeave } from '@ionic/react';
 import './StatsTab.css';
 import { useFarm } from 'utils/Context';
-import { Pie } from 'react-chartjs-2';
 import { CategoryScale } from "chart.js";
 import { Chart as ChartJS } from "chart.js/auto";
 import MyPie from 'components/MyPie';
@@ -17,7 +16,7 @@ const StatsTab: React.FC = () => {
     ChartJS.unregister(CategoryScale);
   }, []);
 
-  const {farm, setFarm} = useFarm();
+  const {farm} = useFarm();
 
 
   return (
