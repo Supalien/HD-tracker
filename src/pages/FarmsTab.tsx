@@ -1,4 +1,4 @@
-import { IonContent, IonHeader, IonPage, IonSelect, IonSelectOption, IonTitle, IonToolbar, IonFab, IonFabButton, IonIcon, useIonModal } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonFab, IonFabButton, IonIcon, useIonModal } from '@ionic/react';
 import './FarmsTab.css';
 import { useCurrentFarm, useFarm } from 'utils/Context';
 import { getFarms, isProd } from 'utils';
@@ -10,8 +10,7 @@ import FarmCard from 'components/FarmCard';
 
 const FarmsTab: React.FC = () => {
   const {farm, setFarm} = useFarm();
-  const {currentFarm, setCurrentFarm} = useCurrentFarm();
-  let farms = getFarms();
+  const {setCurrentFarm} = useCurrentFarm();
   const [present, dismiss] = useIonModal(NewFarmModal, {
     dismiss: (data: any, role: string) => dismiss(data, role),
   });
@@ -64,22 +63,7 @@ const FarmsTab: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonSelect
-          label="Current Farm:"
-          placeholder="Select"
-          value={currentFarm}
-          interface="popover"
-          onIonChange={(e) => {
-            setCurrentFarm(e.detail.value);
-          }}
-        >
-          {farms.map((f: Farm, i: number) => (
-            <IonSelectOption value={i} key={i}>
-              {f?.name || "no name"}
-            </IonSelectOption>
-          ))}
-        </IonSelect>
-        {farms.map((f, i) => <FarmCard farm={f} key={i}/>)}
+        {getFarms().map((f, i) => <FarmCard farm={f} id={i} key={i}/>)}
       </IonContent>
       <IonFab slot="fixed" vertical="bottom" horizontal="end">
         <IonFabButton onClick={openModal}>

@@ -1,24 +1,63 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import {
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonSelect,
+  IonSelectOption,
+  IonTitle,
+  IonToolbar,
+} from "@ionic/react";
 
-import ItemButton from 'components/ItemButton';
-import './TrackerTab.css';
-import { useCurrentFarm, useFarm } from 'utils/Context';
+import ItemButton from "components/ItemButton";
+import "./TrackerTab.css";
+import { useCurrentFarm, useFarm } from "utils/Context";
 
-import {bolt, plank, tape, nails, screw, panel, deed, mallet, marker, dynamite, tnt, shovel, pick, axe, saw} from 'assets'
+import {
+  bolt,
+  plank,
+  tape,
+  nails,
+  screw,
+  panel,
+  deed,
+  mallet,
+  marker,
+  dynamite,
+  tnt,
+  shovel,
+  pick,
+  axe,
+  saw,
+} from "assets";
+import { Farm } from "utils/schemes";
+import { getFarms } from "utils";
 
 const TrackerTab: React.FC = () => {
-  //const params = useSearhParams(); // wont work until ionic decides to support react router v6
-  const {farm} = useFarm();
-  
+  const { currentFarm, setCurrentFarm } = useCurrentFarm();
+
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Farm "{farm.name}"</IonTitle>
+          <IonTitle>
+            <IonSelect
+              value={currentFarm}
+              interface="popover"
+              onIonChange={(e) => {
+                setCurrentFarm(e.detail.value);
+              }}
+            >
+              {getFarms().map((f: Farm, i: number) => (
+                <IonSelectOption value={i} key={i}>
+                  {f?.name || "no name"}
+                </IonSelectOption>
+              ))}
+            </IonSelect>
+          </IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <div className='itemsContainer'>
+        <div className="itemsContainer">
           <ItemButton name="bolt" pic={bolt}></ItemButton>
           <ItemButton name="plank" pic={plank}></ItemButton>
           <ItemButton name="tape" pic={tape}></ItemButton>

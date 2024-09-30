@@ -1,10 +1,10 @@
 const dph_data = [
-    [0,0.70,3,5],
-    [1,0.70,5,7],
-    [2,0.70,5,8],
-    [3,0.70,8,10],
-    [4,0.69,8,11],
-    // first 5 are imaginry
+    [0,0,0,0],
+    [1,0,0,0],
+    [2,0,0,0],
+    [3,0,0,0],
+    [4,0,0,0],
+    // first 5 have no data so they exist only so I could start indexing this list with 0
     [5,0.86,12,14],
     [6,0.67,12,18],
     // 5 and 6 are irrelevant because app wont let you select level lower than 7
