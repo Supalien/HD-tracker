@@ -12,12 +12,12 @@ type Props = {
 
 const ItemButton: React.FC<Props> = ({ name, pic }) => {
   const [present, dismiss] = useIonToast();
-  const presentToast = (mode: "increment" | "decrement") => {
+  const presentToast = (mode: "incremented" | "decremented") => {
     // dismiss the current toast and then present a new one (or just show a new one if no toast is shown)
     dismiss().then(() => {
     present({
-      message: `Item '${name}' ${mode + 'ed'} to ${farm.items[name]}`, // Item 'item' (incremented / decremented) to x
-      duration: 3000,
+      message: `Item '${name}' ${mode} to ${farm.items[name]}`, // Item 'item' (incremented / decremented) to x
+      duration: 2000,
       position: 'bottom',
       positionAnchor: 'tabs',
       leaveAnimation: () => createAnimation() // step down immediately to make way for the successor toast
@@ -31,10 +31,12 @@ const ItemButton: React.FC<Props> = ({ name, pic }) => {
       }
       farm.items[name]++;
       setFarm({...farm});
-      presentToast("increment");
+      presentToast("incremented");
     }} onContextMenu={(ev) => {
       ev.preventDefault();
-      presentToast("decrement");
+      farm.items[name]--;
+      setFarm({...farm});
+      presentToast("decremented");
       }}>
       <img src={pic}/>
     </button>
