@@ -1,5 +1,5 @@
 import { IonCard, IonList, IonItem, IonLabel, IonIcon, IonButton, IonAlert } from "@ionic/react";
-import { trash } from "ionicons/icons";
+import { codeDownload, pencil, trash } from "ionicons/icons";
 import { useMemo } from "react";
 import { getFarms } from "utils";
 import { useCurrentFarm } from "utils/Context";
@@ -27,6 +27,16 @@ const FarmCard: React.FC<{ farm: Farm, id: number }> = ({ farm, id }) => {
     if (currentFarm >= id) setCurrentFarm(currentFarm - 1); // if currentFarm is after the deleted farm then set it to the one before
     else setCurrentFarm(currentFarm); // rerender cards
   }
+  function downloadFarm(farm: Farm): void {
+    const data = JSON.stringify(farm);
+    const blob = new Blob([data], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${farm.name}.json`;
+    a.click();
+    URL.revokeObjectURL(url); // free up memory
+  }
   return (
     <IonCard id={farm.name}>
       <IonList>
@@ -36,6 +46,12 @@ const FarmCard: React.FC<{ farm: Farm, id: number }> = ({ farm, id }) => {
               <strong>{farm.name}</strong>
             </h1>
           </IonLabel>
+          <IonButton fill="clear" onClick={() => downloadFarm(farm)}>
+            <IonIcon icon={codeDownload}/>
+          </IonButton>
+          <IonButton fill="clear">
+            <IonIcon icon={pencil}/>
+          </IonButton>
           <IonButton fill="clear" color="danger" id={`delete_farm_${id}`}>
             <IonIcon icon={trash}/>
           </IonButton>
