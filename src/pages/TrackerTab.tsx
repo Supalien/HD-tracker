@@ -1,5 +1,6 @@
 import {
   IonContent,
+  IonFooter,
   IonHeader,
   IonPage,
   IonSelect,

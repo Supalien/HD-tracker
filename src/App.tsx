@@ -76,7 +76,7 @@ const App: React.FC = () => (
                 <Redirect to="/track" />
               </Route>
             </IonRouterOutlet>
-            <IonTabBar slot="bottom">
+            <IonTabBar slot="bottom" id="tabs">
               <IonTabButton tab="track" href="/track">
                 <IonIcon aria-hidden="true" icon={homeOutline} />
                 <IonLabel>Track</IonLabel>

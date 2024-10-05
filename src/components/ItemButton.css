@@ -11,12 +11,6 @@
     height: auto;
 }
 
-.butt:hover {
-    background-color: var(--bg-color-hover);
-    transform: scale(1.10);
-
-}
-
 .butt:active {
     background-color: var(--bg-color-active);
     transform: scale(0.90);
@@ -26,5 +20,8 @@
     /* For desktop: */
     .butt {
         margin: 4px 2px;
+    }
+    .butt:hover {
+        background-color: var(--bg-color-hover);
     }
 }
