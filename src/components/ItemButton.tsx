@@ -33,6 +33,9 @@ const ItemButton: React.FC<Props> = ({ name, pic }) => {
       setFarm({...farm});
       presentToast("incremented");
     }} onContextMenu={(ev) => {
+      if (farm?.items?.[name] === undefined){
+        throw new Error(`Item '${name}' is undefined.`);
+      }
       ev.preventDefault();
       farm.items[name]--;
       setFarm({...farm});
