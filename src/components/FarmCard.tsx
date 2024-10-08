@@ -22,10 +22,9 @@ const FarmCard: React.FC<{ farm: Farm, id: number }> = ({ farm, id }) => {
     if (farms.length <= 1)
       return alert("You can't delete all your farms!")
     farms.splice(farm, 1);
-    console.log('farms', farms)
     localStorage.setItem('farms', JSON.stringify(farms));
     if (currentFarm >= id) setCurrentFarm(currentFarm - 1); // if currentFarm is after the deleted farm then set it to the one before
-    else setCurrentFarm(currentFarm); // rerender cards
+    else setCurrentFarm(-currentFarm); // if currentFarm is the same then trigger forced rerender
   }
   function downloadFarm(farm: Farm): void {
     const data = JSON.stringify(farm);
