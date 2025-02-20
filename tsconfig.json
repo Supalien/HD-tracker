@@ -15,7 +15,11 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "types": [
+      "vite-plugin-pwa/client",
+      "@types/jest",
+    ],
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
