@@ -3,7 +3,7 @@
 - [X] show number of fields, magic number and average drops per batch based on the level of the current farm.
 - [X] support light mode
 - [ ] let the user edit his farms details
-- [ ] export farm as JSON
+- [X] export farm as JSON
 - [ ] estimate drop subgroups as defined by @puzzles
 
 ## How to run

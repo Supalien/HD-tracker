@@ -5,6 +5,7 @@ import { CategoryScale } from "chart.js";
 import { Chart as ChartJS } from "chart.js/auto";
 import MyPie from 'components/MyPie';
 import MyBar from 'components/MyBar';
+import { SelectFarm } from 'components/SelectFarm';
 
 const StatsTab: React.FC = () => {
   // need to register chartjs so it can work with react
@@ -23,7 +24,9 @@ const StatsTab: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Stats for "{farm.name}"</IonTitle>
+          <IonTitle>
+            <SelectFarm/>
+          </IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>

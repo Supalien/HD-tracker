@@ -1,3 +1,4 @@
+import { SelectFarm } from './../components/SelectFarm';
 import {
   IonContent,
   IonFooter,
@@ -41,19 +42,7 @@ const TrackerTab: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonTitle>
-            <IonSelect
-              value={currentFarm}
-              interface="popover"
-              onIonChange={(e) => {
-                setCurrentFarm(e.detail.value);
-              }}
-            >
-              {getFarms().map((f: Farm, i: number) => (
-                <IonSelectOption value={i} key={i}>
-                  {f?.name || "no name"}
-                </IonSelectOption>
-              ))}
-            </IonSelect>
+            <SelectFarm/>
           </IonTitle>
         </IonToolbar>
       </IonHeader>
