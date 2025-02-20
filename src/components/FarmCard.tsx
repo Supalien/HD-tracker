@@ -1,10 +1,11 @@
-import { IonCard, IonList, IonItem, IonLabel, IonIcon, IonButton, IonAlert } from "@ionic/react";
+import { IonCard, IonList, IonItem, IonLabel, IonIcon, IonButton, IonAlert, useIonModal } from "@ionic/react";
 import { codeDownload, pencil, trash } from "ionicons/icons";
 import { useMemo } from "react";
 import { getFarms } from "utils";
 import { useCurrentFarm } from "utils/Context";
 import { DPH, getDPH } from "utils/dph";
 import { Farm } from "utils/schemes";
+import EditFarmModal from "./EditFarm";
 
 
 const FarmCard: React.FC<{ farm: Farm, id: number }> = ({ farm, id }) => {
@@ -16,17 +17,17 @@ const FarmCard: React.FC<{ farm: Farm, id: number }> = ({ farm, id }) => {
     [farm]
   );
   const { currentFarm, setCurrentFarm } = useCurrentFarm();
-  function deleteFarm(farm: number): void {
+  function deleteFarm(): void {
     const farms = getFarms();
     // make sure user doesn't delete all the farms resulting in errors
     if (farms.length <= 1)
       return alert("You can't delete all your farms!")
-    farms.splice(farm, 1);
+    farms.splice(id, 1);
     localStorage.setItem('farms', JSON.stringify(farms));
     if (currentFarm >= id) setCurrentFarm(currentFarm - 1); // if currentFarm is after the deleted farm then set it to the one before
     else setCurrentFarm(-currentFarm); // if currentFarm is the same then trigger forced rerender
   }
-  function downloadFarm(farm: Farm): void {
+  function downloadFarm(): void {
     const data = JSON.stringify(farm);
     const blob = new Blob([data], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
@@ -35,6 +36,24 @@ const FarmCard: React.FC<{ farm: Farm, id: number }> = ({ farm, id }) => {
     a.download = `${farm.name}.json`;
     a.click();
     URL.revokeObjectURL(url); // free up memory
+  }
+
+  const [present, dismiss] = useIonModal(EditFarmModal, {
+    farm: farm,
+    dismiss: (data: Farm, role: string) => dismiss(data, role),
+  });
+  function editFarm(): void {
+    present({
+      onWillDismiss: (ev) => {
+        if (ev.detail.role === 'confirm'){
+          const farms = getFarms();
+          const newFarm: Farm = {...ev.detail.data, items: farm.items};
+          farms[id] = newFarm;
+          localStorage.setItem('farms', JSON.stringify(farms));
+          setCurrentFarm(-currentFarm);
+        }
+      },
+    });
   }
   return (
     <IonCard id={farm.name}>
@@ -45,10 +64,10 @@ const FarmCard: React.FC<{ farm: Farm, id: number }> = ({ farm, id }) => {
               <strong>{farm.name}</strong>
             </h1>
           </IonLabel>
-          <IonButton fill="clear" onClick={() => downloadFarm(farm)}>
+          <IonButton fill="clear" onClick={() => downloadFarm()}>
             <IonIcon icon={codeDownload}/>
           </IonButton>
-          <IonButton fill="clear">
+          <IonButton fill="clear" onClick={() => editFarm()}>
             <IonIcon icon={pencil}/>
           </IonButton>
           <IonButton fill="clear" color="danger" id={`delete_farm_${id}`}>
@@ -59,7 +78,7 @@ const FarmCard: React.FC<{ farm: Farm, id: number }> = ({ farm, id }) => {
             header="Are you sure you want to delete this farm?"
             buttons={[
               { text: 'Cancel', role: 'cancel' },
-              { text: 'Delete', handler: () => deleteFarm(id) }
+              { text: 'Delete', handler: () => deleteFarm() }
             ]}
           />
         </IonItem>

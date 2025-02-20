@@ -7,10 +7,12 @@ import { add } from 'ionicons/icons';
 import NewFarmModal from 'components/NewFarm';
 import ga4 from 'react-ga4';
 import FarmCard from 'components/FarmCard';
+import { useEffect, useState } from 'react';
 
 const FarmsTab: React.FC = () => {
   const {farm, setFarm} = useFarm();
-  const {setCurrentFarm} = useCurrentFarm();
+  const {currentFarm, setCurrentFarm} = useCurrentFarm();
+  const [farms, setFarms] = useState(getFarms);
   const [present, dismiss] = useIonModal(NewFarmModal, {
     dismiss: (data: any, role: string) => dismiss(data, role),
   });
@@ -54,6 +56,11 @@ const FarmsTab: React.FC = () => {
       },
     });
   }
+
+  useEffect(() => {
+    setFarms(getFarms());  
+  }, [currentFarm])
+  
 
   return (
     <IonPage>
