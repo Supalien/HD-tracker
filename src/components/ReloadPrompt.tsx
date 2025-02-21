@@ -1,3 +1,4 @@
+import { isDev } from 'utils'
 import './ReloadPrompt.css'
 import { useRegisterSW } from 'virtual:pwa-register/react'
 
@@ -5,7 +6,8 @@ function ReloadPrompt() {
   // replaced dynamically
   const buildDate = '__DATE__'
   // replaced dyanmicaly
-  const reloadSW = '__RELOAD_SW__'
+  const reloadSW = isDev()? 'true': '__RELOAD_SW__'
+
 
   const {
     offlineReady: [offlineReady, setOfflineReady],
@@ -13,8 +15,8 @@ function ReloadPrompt() {
     updateServiceWorker,
   } = useRegisterSW({
     onRegisteredSW(swUrl, r) {
-      // @ts-expect-error just ignore
       if (reloadSW === 'true') {
+        console.log('starting interval');
         r && setInterval(() => {
           r.update()
         }, 20000 /* 20s for testing purposes */)
