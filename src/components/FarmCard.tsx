@@ -2,7 +2,7 @@ import { IonCard, IonList, IonItem, IonLabel, IonIcon, IonButton, IonAlert, useI
 import { codeDownload, pencil, trash } from "ionicons/icons";
 import { useMemo } from "react";
 import { getFarms } from "utils";
-import { useCurrentFarm } from "utils/Context";
+import { useCurrentFarm, useFarm } from "utils/Context";
 import { DPH, getDPH } from "utils/dph";
 import { Farm } from "utils/schemes";
 import EditFarmModal from "./EditFarm";
@@ -17,6 +17,7 @@ const FarmCard: React.FC<{ farm: Farm, id: number }> = ({ farm, id }) => {
     [farm]
   );
   const { currentFarm, setCurrentFarm } = useCurrentFarm();
+  const { updateFarms } = useFarm();
   function deleteFarm(): void {
     const farms = getFarms();
     // make sure user doesn't delete all the farms resulting in errors
@@ -25,7 +26,8 @@ const FarmCard: React.FC<{ farm: Farm, id: number }> = ({ farm, id }) => {
     farms.splice(id, 1);
     localStorage.setItem('farms', JSON.stringify(farms));
     if (currentFarm >= id) setCurrentFarm(currentFarm - 1); // if currentFarm is after the deleted farm then set it to the one before
-    else setCurrentFarm(-currentFarm); // if currentFarm is the same then trigger forced rerender
+    else updateFarms();
+    // else setCurrentFarm(-currentFarm); // if currentFarm is the same then trigger forced rerender
   }
   function downloadFarm(): void {
     const data = JSON.stringify(farm);
@@ -50,13 +52,13 @@ const FarmCard: React.FC<{ farm: Farm, id: number }> = ({ farm, id }) => {
           const newFarm: Farm = {...ev.detail.data, items: farm.items};
           farms[id] = newFarm;
           localStorage.setItem('farms', JSON.stringify(farms));
-          setCurrentFarm(-currentFarm);
+          updateFarms();
         }
       },
     });
   }
   return (
-    <IonCard id={farm.name}>
+    <IonCard id={farm?.name}>
       <IonList>
         <IonItem lines="full">
           <IonLabel>

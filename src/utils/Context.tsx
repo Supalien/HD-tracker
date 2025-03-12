@@ -5,6 +5,7 @@ import { emptyFarm, getFarms } from "utils";
 type FarmCtx = {
     farm: Farm,
     setFarm: React.Dispatch<React.SetStateAction<Farm>>
+    updateFarms: () => void
 }
 
 type CurrentCtx = {
@@ -25,7 +26,7 @@ export const FarmCtx = createContext<FarmCtx | null>(null);
  * @returns farm context provider.
  */
 export default function FarmCtxProvider({ children }: any){
-    const {currentFarm, setCurrentFarm} = useCurrentFarm();
+    const {currentFarm} = useCurrentFarm();
     const [farm, setFarm] = useState<Farm>( () => {
         const farmsItem = localStorage.getItem('farms');
         return farmsItem? JSON.parse(farmsItem)[currentFarm] : emptyFarm
@@ -39,17 +40,17 @@ export default function FarmCtxProvider({ children }: any){
         }
         saveFarm();
     }, [farm]);
-
-    // runs everytime currentFarm is changed
-    useEffect( () => {
-        if (currentFarm < 0)
-            setCurrentFarm(-currentFarm);
+    function updateFarms() {
         const farms = getFarms();
         setFarm(farms[currentFarm]);
         localStorage.setItem('currentFarm', currentFarm.toString());
+    }
+    // runs everytime currentFarm is changed
+    useEffect( () => {
+        updateFarms();
     }, [currentFarm]);
     return (
-        <FarmCtx.Provider value={{farm, setFarm}}>
+        <FarmCtx.Provider value={{farm, setFarm, updateFarms}}>
             {children}
         </FarmCtx.Provider>)
 }
