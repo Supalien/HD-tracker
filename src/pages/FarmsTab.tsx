@@ -22,7 +22,7 @@ const FarmsTab: React.FC = () => {
       onWillDismiss: (ev) => {
         if (ev.detail.role === 'confirm'){
           let newFarm: Farm = ev.detail.data;
-          if (farm.level === 0) { // meaning that the current farm is the initial, not configured farm. in that case we want to copy the data that the user might have written on this unconfigured farm and to the newly configured farm.
+          if (farm?.level === 0) { // meaning that the current farm is the initial, not configured farm. in that case we want to copy the data that the user might have written on this unconfigured farm and to the newly configured farm.
             farm.name = newFarm.name;
             farm.level = newFarm.level;
             // add the new farm's items (from json) to the current, initial, unconfigured farm
