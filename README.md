@@ -2,9 +2,10 @@
 - [X] make pwa installable (probably need more icons or some manifest values)
 - [X] show number of fields, magic number and average drops per batch based on the level of the current farm.
 - [X] support light mode
-- [ ] let the user edit his farms details
+- [X] let the user edit his farms details
 - [X] export farm as JSON
 - [ ] estimate drop subgroups as defined by @puzzles
+- [ ] about page
 
 ## How to run
 to build and serve
