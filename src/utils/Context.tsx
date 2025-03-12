@@ -26,7 +26,7 @@ export const FarmCtx = createContext<FarmCtx | null>(null);
  * @returns farm context provider.
  */
 export default function FarmCtxProvider({ children }: any){
-    const {currentFarm} = useCurrentFarm();
+    const {currentFarm, setCurrentFarm} = useCurrentFarm();
     const [farm, setFarm] = useState<Farm>( () => {
         const farmsItem = localStorage.getItem('farms');
         return farmsItem? JSON.parse(farmsItem)[currentFarm] : emptyFarm
@@ -36,7 +36,7 @@ export default function FarmCtxProvider({ children }: any){
         const saveFarm = () => {
             const farms = getFarms();
             farms[currentFarm] = farm;
-            localStorage.setItem('farms', JSON.stringify(farms));
+            localStorage.setItem('farms', JSON.stringify(farms.filter(f => f))); // filter: fix faulty data caused by patched bug. can be removed later
         }
         saveFarm();
     }, [farm]);
@@ -47,7 +47,10 @@ export default function FarmCtxProvider({ children }: any){
     }
     // runs everytime currentFarm is changed
     useEffect( () => {
-        updateFarms();
+        if (currentFarm < 0) // fix faulty data cause by patched bug, can be removed later.
+            setCurrentFarm(-currentFarm);
+        else
+            updateFarms();
     }, [currentFarm]);
     return (
         <FarmCtx.Provider value={{farm, setFarm, updateFarms}}>
