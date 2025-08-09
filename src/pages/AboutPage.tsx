@@ -4,10 +4,10 @@ import { useHistory } from 'react-router';
 import { isProd } from 'utils';
 
 function AboutPage() {
-    if (isProd()) {
-        // Send an event when user enters page
-        ga4.send({ hitType: "pageview", page: "/about", title: "About Page" });
-      }
+    // if (isProd()) {
+    //     // Send an event when user enters page
+    //     ga4.send({ hitType: "pageview", page: "/about", title: "About Page" });
+    //   }
     const history = useHistory();
     function handleClick(): void {
         if (isProd()) {
