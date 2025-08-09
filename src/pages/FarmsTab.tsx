@@ -1,13 +1,16 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonFab, IonFabButton, IonIcon, useIonModal } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonFab, IonFabButton, IonIcon, useIonModal, IonButton, IonButtons, IonNavLink } from '@ionic/react';
 import './FarmsTab.css';
 import { useCurrentFarm, useFarm } from 'utils/Context';
 import { getFarms, isProd } from 'utils';
 import { Farm } from 'utils/schemes';
-import { add } from 'ionicons/icons';
+import { add, informationCircleOutline } from 'ionicons/icons';
 import NewFarmModal from 'components/NewFarm';
 import ga4 from 'react-ga4';
 import FarmCard from 'components/FarmCard';
 import { useEffect, useState } from 'react';
+import AboutPage from './AboutPage';
+import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const FarmsTab: React.FC = () => {
   const {farm, setFarm, updateFarms} = useFarm();
@@ -16,6 +19,7 @@ const FarmsTab: React.FC = () => {
   const [present, dismiss] = useIonModal(NewFarmModal, {
     dismiss: (data: any, role: string) => dismiss(data, role),
   });
+  const history = useHistory();
 
   function openModal() {
     present({
@@ -69,6 +73,11 @@ const FarmsTab: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonTitle>Farms</IonTitle>
+          <IonButtons slot="primary">
+              <IonButton fill='clear' onClick={(e) => {e.preventDefault(); history.push("/about")}}>
+                <IonIcon icon={informationCircleOutline} ></IonIcon>
+              </IonButton>
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>

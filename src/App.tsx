@@ -49,6 +49,7 @@ import '@ionic/react/css/palettes/dark.system.css';
 /* Theme variables */
 import './theme/variables.css';
 import ReloadPrompt from 'components/ReloadPrompt';
+import AboutPage from 'pages/AboutPage';
 
 setupIonicReact();
 if (isProd())
@@ -77,6 +78,9 @@ const App: React.FC = () => (
                 <Redirect to="/track" />
               </Route>
             </IonRouterOutlet>
+          <Route exact path="/about">
+            <AboutPage />
+          </Route>
             <IonTabBar slot="bottom" id="tabs">
               <IonTabButton tab="track" href="/track">
                 <IonIcon aria-hidden="true" icon={homeOutline} />

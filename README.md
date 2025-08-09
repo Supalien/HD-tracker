@@ -5,7 +5,7 @@
 - [X] let the user edit his farms details
 - [X] export farm as JSON
 - [ ] estimate drop subgroups as defined by @puzzles
-- [ ] about page
+- [X] about page
 
 ## How to run
 to build and serve
