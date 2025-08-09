@@ -5,6 +5,7 @@ import { emptyFarm, getFarms } from "utils";
 type FarmCtx = {
     farm: Farm,
     setFarm: React.Dispatch<React.SetStateAction<Farm>>
+    updateFarms: () => void
 }
 
 type CurrentCtx = {
@@ -35,21 +36,24 @@ export default function FarmCtxProvider({ children }: any){
         const saveFarm = () => {
             const farms = getFarms();
             farms[currentFarm] = farm;
-            localStorage.setItem('farms', JSON.stringify(farms));
+            localStorage.setItem('farms', JSON.stringify(farms.filter(f => f))); // filter: fix faulty data caused by patched bug. can be removed later
         }
         saveFarm();
     }, [farm]);
-
-    // runs everytime currentFarm is changed
-    useEffect( () => {
-        if (currentFarm < 0)
-            setCurrentFarm(-currentFarm);
+    function updateFarms() {
         const farms = getFarms();
         setFarm(farms[currentFarm]);
         localStorage.setItem('currentFarm', currentFarm.toString());
+    }
+    // runs everytime currentFarm is changed
+    useEffect( () => {
+        if (currentFarm < 0) // fix faulty data cause by patched bug, can be removed later.
+            setCurrentFarm(-currentFarm);
+        else
+            updateFarms();
     }, [currentFarm]);
     return (
-        <FarmCtx.Provider value={{farm, setFarm}}>
+        <FarmCtx.Provider value={{farm, setFarm, updateFarms}}>
             {children}
         </FarmCtx.Provider>)
 }

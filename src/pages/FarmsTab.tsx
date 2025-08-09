@@ -10,8 +10,8 @@ import FarmCard from 'components/FarmCard';
 import { useEffect, useState } from 'react';
 
 const FarmsTab: React.FC = () => {
-  const {farm, setFarm} = useFarm();
-  const {currentFarm, setCurrentFarm} = useCurrentFarm();
+  const {farm, setFarm, updateFarms} = useFarm();
+  const {setCurrentFarm} = useCurrentFarm();
   const [farms, setFarms] = useState(getFarms);
   const [present, dismiss] = useIonModal(NewFarmModal, {
     dismiss: (data: any, role: string) => dismiss(data, role),
@@ -22,7 +22,7 @@ const FarmsTab: React.FC = () => {
       onWillDismiss: (ev) => {
         if (ev.detail.role === 'confirm'){
           let newFarm: Farm = ev.detail.data;
-          if (farm.level === 0) { // meaning that the current farm is the initial, not configured farm. in that case we want to copy the data that the user might have written on this unconfigured farm and to the newly configured farm.
+          if (farm?.level === 0) { // meaning that the current farm is the initial, not configured farm. in that case we want to copy the data that the user might have written on this unconfigured farm and to the newly configured farm.
             farm.name = newFarm.name;
             farm.level = newFarm.level;
             // add the new farm's items (from json) to the current, initial, unconfigured farm
@@ -35,6 +35,8 @@ const FarmsTab: React.FC = () => {
               )
             };
             setFarm({...farm}); // order a rerender
+            updateFarms();
+
           }
           else{
             const farms = getFarms();
@@ -59,7 +61,7 @@ const FarmsTab: React.FC = () => {
 
   useEffect(() => {
     setFarms(getFarms());  
-  }, [currentFarm])
+  }, [farm])
   
 
   return (
@@ -70,7 +72,7 @@ const FarmsTab: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        {getFarms().map((f, i) => <FarmCard farm={f} id={i} key={i}/>)}
+        {farms.filter(i => i).map((f, i) => <FarmCard farm={f} id={i} key={i}/>)}
       </IonContent>
       <IonFab slot="fixed" vertical="bottom" horizontal="end">
         <IonFabButton onClick={openModal}>
